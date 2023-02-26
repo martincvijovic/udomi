@@ -1,19 +1,29 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
-import { ScreenId } from './app/config/constants';
-import LoginScreen from './app/screens/LoginScreen';
-import RegisterScreen from './app/screens/RegisterScreen';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { RootBottomTabParamList, ScreenId } from './app/utils/navigation-types';
+import SignIn from './app/screens/SignIn';
+import Register from './app/screens/Register';
+import { RootStackParamList } from './app/utils/navigation-types';
+import Home from './app/screens/Home';
+import Profile from './app/screens/Profile';
 
-const AuthStack = createNativeStackNavigator();
+const AuthStack = createNativeStackNavigator<RootStackParamList>();
+const Tabs = createBottomTabNavigator<RootBottomTabParamList>();
 
-export default function App() {
+function App() {
   return (
     <NavigationContainer>
-      <AuthStack.Navigator initialRouteName={ ScreenId.Login }>
-        <AuthStack.Screen name={ ScreenId.Login } component={ LoginScreen } />
-        <AuthStack.Screen name={ ScreenId.Register } component={ RegisterScreen } />
-      </AuthStack.Navigator>
+      <Tabs.Navigator>
+        <Tabs.Screen name={ScreenId.Home} component={Home} />
+        <Tabs.Screen name={ScreenId.Profile} component={Profile} />
+      </Tabs.Navigator>
+      {/* <AuthStack.Navigator initialRouteName={ScreenId.SignIn}>
+        <AuthStack.Screen name={ScreenId.SignIn} component={SignIn} />
+        <AuthStack.Screen name={ScreenId.Register} component={Register} />
+      </AuthStack.Navigator> */}
     </NavigationContainer>
   );
 }
+
+export default App;
